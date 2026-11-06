@@ -10,7 +10,15 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "build": "tsc",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/*.{css,html}": "prettier --check",
+    "**/*.{js,json,ts}": [
+      "eslint",
+      "prettier --check"
+    ]
   },
   "repository": {
     "type": "git",
