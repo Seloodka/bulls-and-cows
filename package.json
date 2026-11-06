@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "style": "prettier --check .",
+    "style:fix": "prettier --fix .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "build": "tsc",
+    "watch": "tsc --watch"
   },
   "repository": {
     "type": "git",
