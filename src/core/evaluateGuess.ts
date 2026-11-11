@@ -3,6 +3,10 @@ type BullsAndCowsCount = {
   cows: number;
 };
 
+type CharsCountMap = {
+  [key: string]: number;
+};
+
 function evaluateGuess(secret: string[], guess: string): BullsAndCowsCount {
   if (!Array.isArray(secret)) {
     throw new TypeError('Секретное число не является массивом символов');
@@ -14,28 +18,24 @@ function evaluateGuess(secret: string[], guess: string): BullsAndCowsCount {
   }
 
   const lowerCaseSecret = secret.map((char) => char.toLowerCase());
-  const secretCharSet = new Set(lowerCaseSecret);
-  const bullsAndCows = lowerCaseSecret.reduce(
-    (acc, secretChar, index) => {
-      if (!guess[index]) {
-        throw new Error(
-          `Длина: ${guess} - ${guess.length} не соответствуют длине загаданного числа - ${secret.length}`,
-        );
-      }
-
-      const guessChar = guess[index].toLowerCase();
-      if (guessChar === secretChar) {
-        acc.bulls++;
-      } else if (secretCharSet.has(guessChar)) {
-        acc.cows++;
-      }
+  const guessWithoutBulls = guess.split('').filter((elem, ind) => elem.toLowerCase() !== lowerCaseSecret[ind]);
+  const secretCharsCountWithoutBulls = lowerCaseSecret
+    .filter((elem, ind) => elem !== guess[ind]?.toLowerCase())
+    .reduce((acc, elem) => {
+      if (!acc[elem]) acc[elem] = 1;
+      else acc[elem] += 1;
 
       return acc;
-    },
-    { bulls: 0, cows: 0 } as BullsAndCowsCount,
-  );
+    }, {} as CharsCountMap);
 
-  return bullsAndCows;
+  const bulls = lowerCaseSecret.filter((elem, ind) => elem === guess[ind]?.toLowerCase()).length;
+  const cows = guessWithoutBulls.reduce((acc, guessChar) => {
+    const guessCharCountInSecret = secretCharsCountWithoutBulls[guessChar.toLowerCase()] || 0;
+
+    return guessCharCountInSecret > 0 ? acc + 1 : acc;
+  }, 0);
+
+  return { bulls, cows } as BullsAndCowsCount;
 }
 
 export { evaluateGuess };
