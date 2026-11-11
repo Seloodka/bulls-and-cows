@@ -12,7 +12,10 @@
 
 .page {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  gap: 50px;
   max-width: 1440px;
 }
 
@@ -44,7 +47,7 @@ label:has(input[type='radio']) {
   min-width: 30px;
   padding: 5px 10px;
   font-weight: bold;
-  border: solid 3px #2bfa05;
+  border: solid 3px #68d489;
   border-radius: 5px;
   cursor: pointer;
 
@@ -65,10 +68,20 @@ label:has(input[type='radio']:checked) {
   }
 }
 
+label:has(input[type='radio']:disabled) {
+  padding: 5px 10px;
+  font-weight: bold;
+  border: solid 3px #68d48877;
+
+  &:hover {
+    cursor: not-allowed;
+  }
+}
+
 .settings-form__submit-button {
   padding: 5px 10px;
   border-radius: 5px;
-  border: solid 3px #2bfa05;
+  border: solid 3px #68d489;
   background: none;
 
   transition: border 0.2s ease-in-out;
@@ -77,4 +90,24 @@ label:has(input[type='radio']:checked) {
     cursor: pointer;
     border-color: aqua;
   }
+}
+
+.invalid-input {
+  outline: none;
+  border: solid 2px #ee3838;
+}
+
+.game-form input[type='text'] {
+  margin: 0 5px;
+}
+
+.game-guesses__guess {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.scores-wrapper__score {
+  display: flex;
+  gap: 10px;
 }

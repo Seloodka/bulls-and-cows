@@ -1,5 +1,6 @@
-import { NumberLengthRange, NumeralSystems } from '../../types/game-constants.js';
-import { createRadioButtonWithOptions } from './helpers.js';
+import { NumberLengthRange, NumeralSystems } from '../../types/game-constants';
+import { bindSettingsEvents } from './events';
+import { createRadioButtonWithOptions } from './helpers';
 
 function createNumericSystemsInputs(possibleNumeralSystems = NumeralSystems): HTMLFieldSetElement {
   const numeralSystemEntries = Object.entries(possibleNumeralSystems).filter(([key]) => isNaN(Number(key)));
@@ -44,6 +45,7 @@ function createLengthInputs(lengthRange = NumberLengthRange): HTMLFieldSetElemen
 
     inputLabel.innerText = `${currentLengthInput}`;
     if (index === 0) lengthInput.setAttribute('checked', '');
+    else lengthInput.setAttribute('disabled', '');
 
     inputLabel.append(lengthInput);
     return inputLabel;
@@ -85,6 +87,8 @@ function createSettingsLayout(): DocumentFragment {
 
   settingsSection.append(sectionTitle, sectionForm);
   settingLayout.append(settingsSection);
+
+  bindSettingsEvents(settingsSection);
 
   return settingLayout;
 }

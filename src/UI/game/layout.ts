@@ -1,3 +1,5 @@
+import { bindGameEvents } from './events';
+
 function createGameForm(): HTMLFormElement {
   const gameForm = document.createElement('form');
   const inputLabel = document.createElement('label');
@@ -13,6 +15,7 @@ function createGameForm(): HTMLFormElement {
 
   submitButton.classList.add('game-form__submit-button');
   submitButton.setAttribute('type', 'submit');
+  submitButton.setAttribute('disabled', '');
   submitButton.innerText = 'Submit guess';
 
   inputLabel.append(guessInput);
@@ -35,6 +38,8 @@ function createGameLayout(): DocumentFragment {
 
   gameSection.append(gameSectionTitle, gameForm, guessesContainer);
   gameLayout.append(gameSection);
+
+  bindGameEvents(gameSection);
   return gameLayout;
 }
 
