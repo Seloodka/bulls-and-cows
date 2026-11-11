@@ -1,0 +1,9 @@
+# Ignore directories:
+.github/
+.node_modules/
+
+# Ignore files:
+README.md
+package.json
+package-lock.json
+
